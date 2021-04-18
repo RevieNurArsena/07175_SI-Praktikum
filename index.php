@@ -1,4 +1,8 @@
 <?php
+
+// Koneksi
+require_once("Koneksi.php");
+
 //Routing dari URL ke Obyek Class PHP
 if (isset($_GET['page']) && isset($_GET['aksi'])) {
     $page = $_GET['page']; // Berisi nama page
