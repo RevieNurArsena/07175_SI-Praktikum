@@ -29,19 +29,22 @@
                         </thead>
                         <tbody>
                             <!-- Diganti Saat Modul 2 -->
-
+                            <?php $no = 1;
+                            foreach($data as $row) : ?>
                             <tr>
-                                <td>1</td>
-                                <td>John Doe</td>
-                                <td>Basis Data</td>
+                                <td><?=$no ?></td>
+                                <td><?= $row['namaPraktikan'] ?></td>
+                                <td><?= $row['namaPraktikum'] ?></td>
                                 <td>
                                     <!-- # nanti di ganti saat modul 3 -->
-                                    <a href="index.php?page=daftarprak&aksi=verif&id=#" class="btn btn-success">Verif</a>
+                                    <a href="index.php?page=daftarprak&aksi=verif&id=<?= $row['idDaftar'] ?>" class="btn btn-success">Verif</a>
 
-                                    <a href="index.php?page=daftarprak&aksi=unVerif&id=#&idPraktikan=#" class="btn btn-danger">Un-Verif</a>
+                                    <a href="index.php?page=daftarprak&aksi=unVerif&id=<?= $row['idDaftar'] ?>&idPraktikan=<?= $row['idPraktikan'] ?>" class="btn btn-danger">Un-Verif</a>
 
                                 </td>
                             </tr>
+                            <?php $no++;
+                            endforeach;?>
                         </tbody>
                     </table>
                 </div>
