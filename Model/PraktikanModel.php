@@ -58,7 +58,7 @@ class PraktikanModel{
 
     public function getPendaftaranPraktikum($idPraktikan)
     {
-        $sql = "SELECT daftarprak.id as idDaftar, praktikum.id as idPraktikum , daftarprak.status as status FROM daftarprak
+        $sql = "SELECT daftarprak.id as idDaftar, praktikum.nama as namaPraktikum, praktikum.id as idPraktikum , daftarprak.status as status FROM daftarprak
         JOIN praktikum ON praktikum.id = daftarprak.praktikum_id
         WHERE daftarprak.praktikan_id = $idPraktikan";
 
