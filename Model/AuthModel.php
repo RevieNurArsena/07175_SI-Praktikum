@@ -99,4 +99,35 @@ class AuthModel{
           session_destroy();
           header("location:index.php?page=auth&aksi=view&pesan=Berhasil Logout !!");
       }
+
+    /**
+     * Function prosesStorePraktikan ini berfungsi untuk menambahkan data ke database
+     * @param nama berisi data nama
+     * @param npm berisi data npm
+     * @param no_hp berisi data nomor hp
+     * @param password berisi data password 
+     */
+
+    public function prosesStorePraktikan($nama, $npm, $no_hp, $password){
+        $sql = "INSERT INTO praktikan(nama, npm, nomor_hp, password) VALUE ('$nama', '$npm', '$no_hp', '$password')";
+        return koneksi()->query($sql);
+    }
+
+    /**
+     * Fungsi storePraktikan ini berfungsi ini untuk memproses data untuk ditambahkan
+     * fungsi ini membutuhkan data nama, npm, notelp, password dengan metode http request POST
+     */
+
+    public function storePraktikan(){
+        $nama = $_POST['nama'];
+        $npm = $_POST['npm'];
+        $no_hp = $_POST['no_hp'];
+        $password = $_POST['password'];
+
+        if($this->prosesStorePraktikan($nama, $npm, $no_hp, $password)){
+            header("location: index.php?page=auth&aksi=view&pesan=Berhasil Daftar") ; //jangan ada spasi habis location
+        } else {
+            header("location: index.php?page=auth&aksi=daftarpraktikan&pesan=Gagal Daftar") ; //jangan ada spasi habis location
+        }
+    }
 }
