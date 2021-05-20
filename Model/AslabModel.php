@@ -43,8 +43,8 @@ class AslabModel{
      public function getModul()
      {
         $sql = "SELECT modul.id as idModul , modul.nama as namaModul FROM modul 
-        JOIN praktikum ON praktikum.id = modul.praktikum_id 
-        WHERE praktikum.status = 1";
+        JOIN praktikum ON praktikum.id = modul.praktikum_id ";
+        //WHERE praktikum.status = 1";
 
         $query = koneksi()->query($sql);
         $hasil = [];
@@ -101,7 +101,7 @@ class AslabModel{
     public function prosesStoreNilai($idModul, $idPraktikan, $nilai){
         $sqlcek = "SELECT * FROM nilai WHERE modul_id=$idModul AND praktikan_id=$idPraktikan";
         $cek = koneksi()->query($sqlcek);
-        if($cek->fetch_assoc() == 0){
+        if($cek->fetch_assoc() == NULL){
             $sqlInsert = "INSERT INTO nilai(modul_id, praktikan_id, nilai) VALUE ($idModul, $idPraktikan, $nilai)";
             $query = koneksi()->query($sqlInsert);
         } else {
@@ -132,7 +132,7 @@ class AslabModel{
      */
     
     public function createNilai(){
-        $modul = $_GET['modul'];
+        $modul = $this->getModul();
         extract($modul);
         require_once("View/aslab/createNilai.php");
     }

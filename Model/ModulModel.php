@@ -97,7 +97,7 @@ class ModulModel{
 
     public function store(){
         $modul = $_POST['modul'];
-        $praktikum = $_POST['Praktikum'];
+        $praktikum = $_POST['praktikum'];
         $getLastData = $this->getLastData();
 
         if($getLastData == null){
@@ -128,9 +128,9 @@ class ModulModel{
     public function delete(){
         $id = $_GET['id'];
         if($this->prosesDelete($id)){
-            header("location: index.php?page=modul&aksi=view&pesan=Berhasil Menambah Data") ; //jangan ada spasi habis location
+            header("location: index.php?page=modul&aksi=view&pesan=Berhasil Delete Data") ; //jangan ada spasi habis location
         }else {
-            header("location: index.php?page=modul&aksi=view&pesan=Gagal Menambah Data") ; //jangan ada spasi habis location
+            header("location: index.php?page=modul&aksi=view&pesan=Gagal Delete Data") ; //jangan ada spasi habis location
         }
     }
 }

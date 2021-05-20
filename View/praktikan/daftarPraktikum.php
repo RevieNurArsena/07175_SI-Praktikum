@@ -23,8 +23,10 @@
                         <div class="col">
                             <!-- Digant saat modul 3 -->
                             <label for="">Praktikum : </label>
+                            <?php foreach($data as $row) : ?>
                             <select name="praktikum" class="form-control">
-                                <option value="1">Basis Data</option>
+                                <option value="<?= $row['id'] ?>"><?= $row['nama'] ?></option>
+                            <?php endforeach; ?>
                             </select>
                         </div>
                     </div>

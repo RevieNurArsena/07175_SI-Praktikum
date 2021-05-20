@@ -89,8 +89,8 @@ class PraktikanModel{
     public function getModul()
     {
         $sql = "SELECT modul.id as idModul , modul.nama as namaModul FROM modul 
-        JOIN praktikum ON praktikum.id = modul.praktikum_id 
-        WHERE praktikum.status = 1";
+        JOIN praktikum ON praktikum.id = modul.praktikum_id"; 
+        //WHERE praktikum.status = 1";
 
         $query = koneksi()->query($sql);
         $hasil = [];
@@ -147,7 +147,7 @@ class PraktikanModel{
      */
 
     public function prosesUpdate($nama, $npm, $password, $no_hp, $id){
-        $sql = "UPDATE praktikan SET nama='$nama', npm='$npm', password='$password', nomor_hp='$no_hp', WHERE id='$id'";
+        $sql = "UPDATE praktikan SET nama='$nama', npm='$npm', password='$password', nomor_hp='$no_hp' WHERE id='$id'";
         $query = koneksi()->query($sql);
         return $query;
     }
@@ -188,7 +188,7 @@ class PraktikanModel{
      */
 
     public function prosesStorePraktikum($idPraktikan, $idPraktikum){
-        $sql = "INSERT INTO daftarprak(praktikan_id, praktikum_id, status) VALUE ($idPraktikan, $$idPraktikum, 0)";
+        $sql = "INSERT INTO daftarprak(praktikan_id, praktikum_id, status) VALUE ($idPraktikan, $idPraktikum, 0)";
         $query = koneksi()->query($sql);
         return $query;
     }
