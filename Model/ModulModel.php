@@ -19,17 +19,6 @@ class ModulModel{
     }
 
     /**
-     * Function index berfungsi untuk mengatur tampilan awal halaman modul
-     */
-
-    public function index()
-    {
-        $data = $this->get();
-        extract($data);
-        require_once("View/modul/index.php");
-    }
-
-    /**
      * Function getLastData berfungsi untuk mengambil data modul
      */
 
@@ -80,57 +69,4 @@ class ModulModel{
         return $hasil;
     }
 
-    /**
-     * Function create berfungsi untuk mengatur ke halaman create modul
-     */
-
-    public function create(){
-        $data = $this->getPraktikum();
-
-        extract($data);
-        require_once("View/modul/create.php");
-    }
-
-    /**
-     * Function store berfungsi untuk menyimpan data modul yang telah di inputkan oleh aslab
-     */
-
-    public function store(){
-        $modul = $_POST['modul'];
-        $praktikum = $_POST['praktikum'];
-        $getLastData = $this->getLastData();
-
-        if($getLastData == null){
-            for($i = 1; $i <= $modul; $i++){
-                $nama = 'Modul '. $i; // Modul 1
-                $post = $this->prosesStore($nama, $praktikum);
-            }
-        }else {
-            $modulLast = explode(" ", $getLastData['nama']);
-            for($i = 1; $i <= $modul; $i++){
-                $a = $modulLast['1'] += 1;
-                $nama = 'Modul '. $a; 
-                $post = $this->prosesStore($nama, $praktikum);
-            }
-        }
-
-        if($post){
-            header("location: index.php?page=modul&aksi=view&pesan=Berhasil Menambah Data") ; //jangan ada spasi habis location
-        }else {
-            header("location: index.php?page=modul&aksi=create&pesan=Gagal Menambah Data") ; //jangan ada spasi habis location
-        }
-    }
-
-    /**
-     * Function delete berfungsi untuk menghapus modul
-     */
-
-    public function delete(){
-        $id = $_GET['id'];
-        if($this->prosesDelete($id)){
-            header("location: index.php?page=modul&aksi=view&pesan=Berhasil Delete Data") ; //jangan ada spasi habis location
-        }else {
-            header("location: index.php?page=modul&aksi=view&pesan=Gagal Delete Data") ; //jangan ada spasi habis location
-        }
-    }
 }

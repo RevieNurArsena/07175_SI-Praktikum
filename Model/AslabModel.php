@@ -14,7 +14,7 @@ class AslabModel{
         JOIN praktikum ON daftarprak.praktikum_id = praktikum.id 
         WHERE daftarprak.status = 1 
         AND daftarprak.aslab_id = $idAslab
-        AND praktikum.status = 1; ";
+        AND praktikum.status = 1 ";
 
         $query = koneksi()->query($sql);
         $hasil = [];
@@ -22,18 +22,6 @@ class AslabModel{
             $hasil[] = $data;
         }
         return $hasil;
-    }
-
-     /**
-      * Function index berfungsi untuk mengatur tampilan awal
-      */
-
-    public function index()
-    {
-        $idAslab = $_SESSION['aslab']['id'];
-        $data = $this->get($idAslab);
-        extract($data);
-        require_once("View/aslab/index.php");
     }
 
     /**
@@ -77,20 +65,6 @@ class AslabModel{
     }
 
     /**
-     * Function nilai berfungsi untuk mengatur tampilan halaman data nilai praktikan
-     */
-
-    public function nilai()
-    {
-        $idPraktikan = $_GET['id'];
-        $modul = $this->getModul();
-        $nilai = $this->getNilaiPraktikan($idPraktikan);
-        extract($modul);
-        extract($nilai);
-        require_once("View/aslab/nilai.php");
-    }
-
-    /**
      * @param integer idModul berisi id modul
      * @param integer idPraktikan berisi id Praktikan
      * @param integer nilai berisi nilai praktikan
@@ -108,35 +82,8 @@ class AslabModel{
             $sqlUpdate = "UPDATE nilai SET nilai='$nilai' WHERE modul_id=$idModul AND praktikan_id=$idPraktikan";
             $query = koneksi()->query($sqlUpdate);
         }
+        return $query;
     }
-
-    /**
-     * Function storeNilai berfungsi untuk menyimpan data nilai sesuai dengan id praktikan dari form yang
-     * telah di isi aslab pada halaman create nilai 
-     */
-
-    public function storeNilai(){
-        $idModul = $_POST['modul'];
-        $idPraktikan = $_GET['id'];
-        $nilai = $_POST['nilai'];
-
-        if($this->prosesStoreNilai($idModul, $idPraktikan, $nilai)){
-            header("location: index.php?page=aslab&aksi=nilai&pesan=Berhasil Tambah Data&id=$idPraktikan") ; //jangan ada spasi habis location
-        } else {
-            header("location: index.php?page=aslab&aksi=createNilai&pesan=Gagal Tambah Data&id=$idPraktikan") ; //jangan ada spasi habis location
-        }
-    }
-
-    /**
-     * Function createNilai ini berfungsi untuk mengatur ke halaman input nilai
-     */
-    
-    public function createNilai(){
-        $modul = $this->getModul();
-        extract($modul);
-        require_once("View/aslab/createNilai.php");
-    }
-
 
 }
 

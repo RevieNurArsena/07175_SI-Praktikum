@@ -13,17 +13,6 @@ class PraktikanModel{
         return $query->fetch_assoc();
     }
 
-    /**
-     * Function index berfungsi untuk mengatur tampilan awal halaman praktikan
-     */
-
-    public function index()
-    {
-        $id = $_SESSION['praktikan']['id'];
-        $data = $this->get($id);
-        extract($data);
-        require_once("View/praktikan/index.php");
-    }
 
     /**
      * Function getPraktikum berfungsi untuk mengambil seluruh data praktikum yang aktif
@@ -40,16 +29,6 @@ class PraktikanModel{
         return $hasil;
     }
 
-    /**
-     * Function daftarPraktikum berfungsi untuk mengatur tampilan halaman daftar praktikum
-     */
-
-    public function daftarPraktikum()
-    {
-        $data = $this->getPraktikum();
-        extract($data);
-        require_once("View/praktikan/daftarPraktikum.php");
-    }
 
     /**
      * Function getPendaftaranPraktikum berfungsi untuk mengambil data pendaftaran praktikum praktikan
@@ -68,18 +47,6 @@ class PraktikanModel{
             $hasil[] = $data;
         }
         return $hasil;
-    }
-
-    /**
-     * Function praktikum berfungsi untuk mengatur ke tampilan halaman praktikum praktikan
-     */
-
-    public function praktikum()
-    {
-        $idPraktikan = $_SESSION['praktikan']['id'];
-        $data = $this->getPendaftaranPraktikum($idPraktikan);
-        extract($data);
-        require_once("View/praktikan/praktikum.php"); 
     }
 
     /**
@@ -122,20 +89,6 @@ class PraktikanModel{
         return $hasil;
     }
 
-    /**
-     * Function nilaiPraktikan berfungsi untuk mengatur halaman nilai praktikum praktikan
-     */
-
-    public function nilaiPraktikan()
-    {   
-        $idPraktikan = $_SESSION['praktikan']['id'];
-        $idPraktikum = $_GET['idPraktikum'];
-        $modul = $this->getModul();
-        $nilai = $this->getNilaiPraktikan($idPraktikan, $idPraktikum);
-        extract($modul);
-        extract($nilai);
-        require_once("View/praktikan/nilaiPraktikan.php");
-    }
 
     /**
      * Function prosesUpdate berfungsi untuk update data praktikan pada database
@@ -152,34 +105,6 @@ class PraktikanModel{
         return $query;
     }
 
-    /**
-     * Function update ini berfungsi untuk menyimpan hasil edit
-     */
-    
-    public function update(){
-        $id = $_POST['id'];
-        $nama = $_POST['nama'];
-        $npm = $_POST['npm'];
-        $no_hp = $_POST['no_hp'];
-        $password = $_POST['password'];
-
-        if($this->prosesUpdate($nama, $npm, $password, $no_hp, $id)){
-            header("location: index.php?page=praktikan&aksi=view&pesan=Berhasil Ubah Data") ; //jangan ada spasi habis location
-        } else {
-            header("location: index.php?page=praktikan&aksi=edit&pesan=Gagal Ubah Data") ; //jangan ada spasi habis location
-        }
-    }
-
-    /**
-     * Function edit berfungsi untuk menampilakn form edit
-     */
-
-    public function edit(){
-        $id = $_SESSION['praktikan']['id'];
-        $data = $this->get($id);
-        extract($data);
-        require_once("View/praktikan/edit.php");
-    }
 
     /**
      * Function prosesStorePraktikum berfungsi untuk input data daftar praktikum ke database
@@ -193,18 +118,4 @@ class PraktikanModel{
         return $query;
     }
 
-    /**
-     * Function storePraktikum berfungsi untuk memproses data praktikum yang dipilih untuk ditambahkan
-     */
-
-    public function storePraktikum(){
-        $praktikum = $_POST['praktikum'];
-        $idPraktikan = $_SESSION['praktikan']['id'];
-
-        if($this->prosesStorePraktikum($idPraktikan, $praktikum)){
-            header("location: index.php?page=praktikan&aksi=praktikum&pesan=Berhasil Daftar Praktikum") ; //jangan ada spasi habis location
-        } else {
-            header("location: index.php?page=praktikan&aksi=daftarPraktikum&pesan=Gagal Daftar Praktikum") ; //jangan ada spasi habis location
-        }
-    }
 }
